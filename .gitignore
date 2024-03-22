@@ -1,4 +1,22 @@
+# General
+*.log*
+.DS_Store
+
+# Environment files
+.env
+
+# Python
 **/__pycache__/
 /venv/
+
+# Django
 /backend/db.sqlite3
-.env
+
+# JavaScript/Node.js
+**/node_modules
+
+# Build artifacts
+frontend/build
+
+# Testing artifacts
+frontend/coverage
