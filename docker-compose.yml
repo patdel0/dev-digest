@@ -6,7 +6,7 @@ services:
     volumes:
       - ./backend:/app
     ports:
-      - "8000:8000"
+      - "7860:7860"
     environment:
       - DATABASE_URL=sqlite:///db.sqlite3
 
