@@ -20,3 +20,5 @@ frontend/build
 
 # Testing artifacts
 frontend/coverage
+
+*storybook.log
