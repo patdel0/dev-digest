@@ -1,7 +1,12 @@
-import Greeting from './Greeting'
+import React from "react";
+import Greeting from "./Greeting";
 
 function App() {
-  return <Greeting />
+  return (
+    <div>
+      <Greeting />
+    </div>
+  );
 }
 
 export default App;
