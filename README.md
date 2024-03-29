@@ -27,3 +27,9 @@ Make scripts executable if needed:
 ```sh
 chmod +x ./script/*
 ```
+
+**Run Server**: Start the Storybook server with:
+
+```sh
+npm run storybook
+```
