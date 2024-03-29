@@ -1,35 +1,40 @@
+## Getting started
+
+### Requirements
+**Docker**: A platform for automating application deployment, scaling, and
+ management using containerization.
+
+Download from [Docker's official website](
+https://www.docker.com/products/docker-desktop).
+
+**docker-compose**: A tool for defining and running multi-container Docker
+ applications with YAML files, included in Docker Desktop for Windows and Mac,
+ and installable on Linux.
+
+More info on the [Docker Compose documentation](https://docs.docker.com/compose/).
+
+ 
+Ensure `docker` and `docker-compose` are correctly installed and configured before setup and server script execution.
+
+```
+docker --version;
+docker-compose --version;
+```
+
 ### Quick Start Scripts
+Scripts were created following the [Scripts to Rule Them All pattern](https://github.blog/2015-06-30-scripts-to-rule-them-all/).
 
-**Setup**: Initialise your environment with:
-
+**Setup** 
 ```sh
 ./script/setup
 ```
 
-This installs dependencies.
-
-**Run Server**: Start the Django server with:
-
+**Run Servers**
 ```sh
 ./script/server
 ```
 
-**Run Server**: Start the Frontend server with:
-
-```sh
-cd frontend; npm i; npm start
-```
-
-Access your app at `http://localhost:8000/`.
-
-Make scripts executable if needed:
-
-```sh
-chmod +x ./script/*
-```
-
-**Run Server**: Start the Storybook server with:
-
-```sh
-npm run storybook
-```
+The following services are expected to run:
+- React: http://localhost:3000
+- Django: http://localhost:8000
+- Storybook: http://localhost:6006
