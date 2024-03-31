@@ -6,7 +6,7 @@ function Greeting() {
   const [greeting, setGreeting] = useState(null);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/hello")
+    fetch("https://patdel0-dev-digest-backend.hf.space/api/hello/")
       .then((response) => response.json())
       .then((data) => setGreeting(data.message))
       .catch((error) => console.error("Error fetching data: ", error));

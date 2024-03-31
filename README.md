@@ -36,5 +36,5 @@ Scripts were created following the [Scripts to Rule Them All pattern](https://gi
 
 The following services are expected to run:
 - React: http://localhost:3000
-- Django: http://localhost:8000
+- Django: http://localhost:7860
 - Storybook: http://localhost:6006
