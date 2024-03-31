@@ -1,7 +1,7 @@
 # api/views.py
 from rest_framework import generics
-from .models import Article
-from .serializers import ArticleSerializer
+from .models import Article, Source
+from .serializers import ArticleSerializer, SourceSerializer
 
 class ArticleListCreate(generics.ListCreateAPIView):
     queryset = Article.objects.all()
@@ -10,3 +10,7 @@ class ArticleListCreate(generics.ListCreateAPIView):
 class ArticleRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+
+class SourceListCreate(generics.ListCreateAPIView):
+    queryset = Source.objects.all()
+    serializer_class = SourceSerializer

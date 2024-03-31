@@ -1,4 +1,4 @@
-# api/models.py
+# models.py
 from django.db import models
 
 class Article(models.Model):
@@ -9,3 +9,9 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+class Source(models.Model):
+    feed_url = models.URLField(unique=True)
+
+    def __str__(self):
+        return self.feed_url
