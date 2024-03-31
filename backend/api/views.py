@@ -1,10 +1,12 @@
-from django.shortcuts import render
+# api/views.py
+from rest_framework import generics
+from .models import Article
+from .serializers import ArticleSerializer
 
-## Hello world API view
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
+class ArticleListCreate(generics.ListCreateAPIView):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
 
-class HelloWorldAPIView(APIView):
-    def get(self, request):
-        return Response(data={"message": "Hello World"}, status=status.HTTP_200_OK)
+class ArticleRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
