@@ -38,3 +38,10 @@ The following services are expected to run:
 - React: http://localhost:3000
 - Django: http://localhost:7860
 - Storybook: http://localhost:6006
+
+**Run Django Server**
+starts a local web server for your Django project, allowing you to test and develop your web application.
+
+```sh
+python3 manage.py runserver
+```
