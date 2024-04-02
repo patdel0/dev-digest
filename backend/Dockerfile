@@ -13,6 +13,9 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 
 COPY . /app/
 
+# Run migrations
+RUN python3 manage.py migrate
+
 EXPOSE 7860
 
 CMD ["uvicorn", "config.asgi:application", "--host", "0.0.0.0", "--port", "7860"]
