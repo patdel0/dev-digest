@@ -41,3 +41,15 @@ The following services are expected to run:
 - React: http://localhost:3000
 - Django: http://localhost:7860
 - Storybook: http://localhost:6006
+
+**Run Tests**
+
+Run front end and back end tests:
+```sh
+./script/test
+```
+
+To see other commands options:
+```sh 
+./script/test help
+```
