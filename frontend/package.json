@@ -15,7 +15,8 @@
     "build": "webpack --mode production",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test": "jest --watch"
+    "test": "jest --watchAll",
+    "test:ci": "jest"
   },
   "proxy": "http://127.0.0.1:7860",
   "eslintConfig": {
