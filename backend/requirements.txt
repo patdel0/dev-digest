@@ -2,3 +2,6 @@ Django==4.2.8
 djangorestframework==3.15.0
 django-cors-headers==4.3.1
 uvicorn
+pytest>=7.2.2
+pytest-django>=4.8.0
+pytest-watch
