@@ -5,3 +5,4 @@ uvicorn
 pytest>=7.2.2
 pytest-django>=4.8.0
 pytest-watch
+feedparser
