@@ -1,5 +1,6 @@
 import requests
 import feedparser
+from .scrape_article import scrape_article
 
 def curate_articles(feeds):
     articles = []
@@ -8,6 +9,7 @@ def curate_articles(feeds):
         feed = parse_feed(feed_path)
 
         for entry in feed.entries:
+            entry.content = scrape_article(entry.link)
             entry.provider = feed.channel.title
             articles.append(entry)
 
