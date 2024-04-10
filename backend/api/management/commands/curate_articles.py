@@ -5,13 +5,21 @@ from .scrape_article import scrape_article
 def curate_articles(feeds):
     articles = []
 
-    for feed_path in feeds:
-        feed = parse_feed(feed_path)
+    for feed_url in feeds:
+        feed = parse_feed(feed_url)
 
         for entry in feed.entries:
-            entry.content = scrape_article(entry.link)
-            entry.provider = feed.channel.title
-            articles.append(entry)
+            article_dict = {
+                'title': entry.title,
+                'link': entry.link,
+                'summary': entry.summary,
+                'published': entry.get('published', ''),
+                'content': scrape_article(entry.link),
+                'provider': feed.feed.get('title', feed_url)
+            }
+
+            print(f"Scraping article {article_dict['title']}")
+            articles.append(article_dict)
 
     return articles
 
