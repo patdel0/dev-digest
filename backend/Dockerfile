@@ -13,9 +13,9 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 
 COPY . /app/
 
-# Run migrations
-RUN python3 manage.py migrate
+COPY ./bin/start.sh /start.sh
+RUN chmod +x /start.sh
 
 EXPOSE 7860
 
-CMD ["uvicorn", "config.asgi:application", "--host", "0.0.0.0", "--port", "7860"]
+CMD ["/start.sh"]
