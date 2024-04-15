@@ -15,11 +15,15 @@ class Command(BaseCommand):
 
         for item in articles:
             title = item['title']
-            content = item['content'].get_text() if item['content'] is not None else ""
 
             article, created = Article.objects.get_or_create(
                 title=title,
-                defaults={'content': content}
+                defaults={
+                    'content': item['content'].get_text() if item['content'] is not None else "",
+                    'url': item['url'],
+                    'excerpt': item['excerpt'],
+                    'provider': item['provider'],
+                }
             )
 
             if created:
