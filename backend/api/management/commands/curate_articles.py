@@ -14,12 +14,12 @@ def curate_articles(feeds):
 
         for entry in feed.entries:
             article_dict = {
-                'title': entry.title if hasattr(entry, 'title') else None,
-                'link': entry.link if hasattr(entry, 'link') else None,
-                'summary': entry.summary if hasattr(entry, 'summary') else None,
-                'published': getattr(entry, 'published', None),
-                'content': scrape_article(entry.link) if hasattr(entry, 'link') and entry.link else None,
-                'provider': feed.feed.get('title', None)
+                'title': entry.title if hasattr(entry, 'title') else "",
+                'url': entry.link if hasattr(entry, 'link') else "",
+                'excerpt': entry.summary if hasattr(entry, 'summary') else "",
+                'published': getattr(entry, 'published', ""),
+                'content': scrape_article(entry.link) if hasattr(entry, 'link') and entry.link else "",
+                'provider': feed.feed.get('title', "")
             }
 
             print(f"Scraping article {article_dict['title']} from {feed_url}")
