@@ -2,20 +2,20 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  mode: "development", // Change to 'production' for production build
-  entry: "./src/index.js", // Your entry file
+  mode: "development",
+  entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
     publicPath: "/",
   },
   resolve: {
-    extensions: [".js", ".jsx", ".ts", ".tsx"], // Add .ts and .tsx as supported extensions
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx|ts|tsx)$/, // Modify the test pattern to include .ts and .tsx files
+        test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -24,7 +24,7 @@ module.exports = {
               "@babel/preset-env",
               "@babel/preset-react",
               "@babel/preset-typescript",
-            ], // Add @babel/preset-typescript preset for TypeScript
+            ],
           },
         },
       },
@@ -32,17 +32,16 @@ module.exports = {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
       },
-      // Add loaders for other file types like images, fonts, etc.
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./public/index.html", // Your HTML template
+      template: "./public/index.html",
       filename: "index.html",
     }),
   ],
   devServer: {
-    static: path.join(__dirname, "dist"), // Serve content from the 'dist' directory
+    static: path.join(__dirname, "dist"),
     compress: true,
     port: 3000,
     historyApiFallback: true,
