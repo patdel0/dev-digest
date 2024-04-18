@@ -1,9 +1,13 @@
+import fetchMock from 'jest-fetch-mock';
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import ResultCard from '../../src/components/ResultCard';
 
+fetchMock.enableMocks();
+
 describe("ResultCard", () => {
     const mockArticle = {
+        id: 1,
         title: "Card title",
         excerpt: "This is the article excerpt",
         url: "https://www.example.com/",
@@ -11,6 +15,7 @@ describe("ResultCard", () => {
     }
 
     beforeEach(() => {
+        fetchMock.resetMocks();
         render(<ResultCard {...mockArticle} />);
     });
 
@@ -34,8 +39,31 @@ describe("ResultCard", () => {
         expect(rating.textContent).toBe(mockArticle.rating.toString());
     });
 
-    /* it("increases rating by one when user clicks upvote", () => {
-     *     const upvoteButton = screen.getByTestId("upvote");
+    describe("rating interactions", () => {
+        const getRating = () => Number(screen.getByTestId("rating").textContent);
 
-     * }) */
+        it("increases rating by 1 when user clicks upvote", () => {
+            const upvoteButton = screen.getByTestId("upvote");
+            const ratingBeforeClick = getRating();
+
+            fireEvent.click(upvoteButton);
+
+            fetchMock.mockResponseOnce(JSON.stringify({ rating: mockArticle.rating + 1 }));
+            const ratingAfterClick = getRating();
+
+            expect(ratingAfterClick).toBe(ratingBeforeClick + 1)
+        });
+
+        it("decreases rating by 1 when user clicks downvote", () => {
+            const upvoteButton = screen.getByTestId("downvote");
+            const ratingBeforeClick = getRating();
+
+            fireEvent.click(upvoteButton);
+
+            fetchMock.mockResponseOnce(JSON.stringify({ rating: mockArticle.rating - 1 }));
+            const ratingAfterClick = getRating();
+
+            expect(ratingAfterClick).toBe(ratingBeforeClick - 1)
+        });
+    });
 });
