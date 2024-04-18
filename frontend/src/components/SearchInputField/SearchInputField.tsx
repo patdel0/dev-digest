@@ -31,6 +31,7 @@ const SearchInputField: React.FC<SearchInputFieldProps> = ({ placeholder, onSear
         onChange={handleChange}
         onKeyPress={handleKeyPress}
       />
+      <button onClick={handleSearch}>Search</button>
     </div>
   );
 };
