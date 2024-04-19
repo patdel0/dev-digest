@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {AiOutlineSearch} from 'react-icons/ai'
 
 export interface SearchInputFieldProps {
   placeholder: string;
@@ -23,9 +24,9 @@ const SearchInputField: React.FC<SearchInputFieldProps> = ({ placeholder, onSear
   };
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className="w-[400px] relative">
       <input
-        className="border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+        className='w-full p-4 rounded-full bg-slate-200'
         type="text"
         placeholder={placeholder}
         value={query}
@@ -33,10 +34,10 @@ const SearchInputField: React.FC<SearchInputFieldProps> = ({ placeholder, onSear
         onKeyPress={handleKeyPress}
       />
       <button
-        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+        className='absolute right-1 top-1/2 -translate-y-1/2 p-4 bg-slate-300 rounded-full'
         onClick={handleSearch}
       >
-        Search
+        <AiOutlineSearch />
       </button>
     </div>
   );
