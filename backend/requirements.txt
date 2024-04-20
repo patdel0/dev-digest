@@ -9,3 +9,4 @@ pytest-mock
 feedparser
 beautifulsoup4
 requests
+django-cron

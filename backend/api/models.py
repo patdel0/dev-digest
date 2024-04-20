@@ -2,8 +2,13 @@
 from django.db import models
 
 class Article(models.Model):
-    title = models.CharField(max_length=100)
-    content = models.TextField()
+    content = models.TextField(default="")
+    title = models.TextField(default="")
+    url = models.TextField(default="")
+    rating = models.IntegerField(default=0)
+    excerpt = models.TextField(default="")
+    tags = models.JSONField(default=list)
+    provider = models.TextField(default="")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
