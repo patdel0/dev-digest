@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "./stories/Button";
+import SearchInputField from "./components/SearchInputField/SearchInputField"; // Import the SearchInputField component
 
 function Greeting() {
   const [greeting, setGreeting] = useState(null);
@@ -15,7 +15,16 @@ function Greeting() {
   return (
     <div>
       <h1 data-testid="greeting">{greeting}</h1>
-      <Button label="Button" onClick={() => {}} primary />{" "}
+      <Button label="Button" onClick={() => {}} primary />
+      <div>
+        <SearchInputField
+          placeholder="Search..."
+          onSearch={(query) => {
+            // Handle search functionality here
+            console.log("Search query:", query);
+          }}
+        />
+      </div>
     </div>
   );
 }
