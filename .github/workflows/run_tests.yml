@@ -31,7 +31,7 @@ jobs:
           done
       - name: Run test script
         run: |
-          ./script/test
+          ./script/test ci
       - name: Cleanup
         run: |
           docker-compose down
