@@ -1,3 +1,8 @@
+name: Run Tests
+on:
+  push:
+  pull_request:
+
 jobs:
   run-scripts:
     runs-on: ubuntu-latest
@@ -19,7 +24,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Run Docker Compose
         run: |
-          ./script/server -d
+           -d
           until curl -s http://localhost:3000 >/dev/null; do
             sleep 1
           done
