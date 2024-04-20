@@ -1,0 +1,34 @@
+name: Run Tests
+on:
+  push:
+  pull_request:
+jobs:
+  run-scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Docker
+        uses: docker-practice/actions-setup-docker@master
+        timeout-minutes: 12
+      - name: Verify Docker installation
+        run: |
+          set -x
+          docker version
+          docker run --rm hello-world
+      - name: Install Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version  # Verify installation
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Start server
+        run: |
+          ./script/server -d
+      - name: Wait for server to start
+        run: |
+          until curl -s http://localhost:8000 >/dev/null; do
+            sleep 1
+          done
+      - name: Run test script
+        run: |
+          ./script/test
