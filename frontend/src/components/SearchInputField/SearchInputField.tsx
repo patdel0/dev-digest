@@ -34,11 +34,14 @@ const SearchInputField: React.FC<SearchInputFieldProps> = ({ placeholder, onSear
         onKeyPress={handleKeyPress}
       />
       <button
-        className='absolute right-1 top-1/2 -translate-y-1/2 p-4 bg-slate-300 rounded-full'
+        data-testid="search-button"
+        className='absolute right-1 top-1/2 -translate-y-1/2 p-4 bg-slate-300 rounded-full hover:bg-slate-400'
         onClick={handleSearch}
       >
         <AiOutlineSearch />
       </button>
+
+
     </div>
   );
 };

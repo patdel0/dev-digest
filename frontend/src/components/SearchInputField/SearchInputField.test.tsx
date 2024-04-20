@@ -4,13 +4,11 @@ import SearchInputField from './SearchInputField';
 
 test('search input triggers onEnter', () => {
   const mockOnSearch = jest.fn();
-  const { getByPlaceholderText, getByText } = render(
+  const { getByPlaceholderText } = render(
     <SearchInputField placeholder="Search..." onSearch={mockOnSearch} />
   );
 
   const inputElement = getByPlaceholderText('Search...');
-  const buttonElement = getByText('Search');
-
   fireEvent.change(inputElement, { target: { value: 'test' } });
   fireEvent.keyPress(inputElement, { key: 'Enter', code: 13, charCode: 13 });
 
@@ -19,14 +17,13 @@ test('search input triggers onEnter', () => {
 
 test('search button triggers onSearch', () => {
   const mockOnSearch = jest.fn();
-  const { getByText } = render(
+  const { getByTestId } = render(
     <SearchInputField placeholder="Search..." onSearch={mockOnSearch} />
   );
 
-  const buttonElement = getByText('Search');
+  const buttonElement = getByTestId('search-button');
 
   fireEvent.click(buttonElement);
 
   expect(mockOnSearch).toHaveBeenCalled();
 });
-
