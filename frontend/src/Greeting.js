@@ -1,30 +1,38 @@
 import React, { useEffect, useState } from "react";
-import SearchInputField from "./components/SearchInputField/SearchInputField"; // Import the SearchInputField component
+import SearchInputField from "./components/SearchInputField/SearchInputField";
 
 function Greeting() {
   const [articles, setArticles] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:7860/api/articles/")
+    const apiUrl = `http://localhost:7860/api/articles/?search=${searchQuery}`;
+    fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => setArticles(data))
       .catch((error) => console.error("Error fetching data: ", error));
-  }, []);
+  }, [searchQuery]);
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  const filteredArticles = searchQuery
+    ? articles.filter(
+        (article) =>
+          article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          article.content.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : [];
 
   return (
     <div>
       <div>
-        <SearchInputField
-          placeholder="Search..."
-          onSearch={(query) => {
-            // Handle search functionality here
-            console.log("Search query:", query);
-          }}
-        />
+        <SearchInputField placeholder="Search..." onSearch={handleSearch} />
       </div>
       <h1>Articles</h1>
       <ul>
-        {articles.map((article) => (
+        {filteredArticles.map((article) => (
           <li key={article.id}>
             <h2>{article.title}</h2>
             <p>{article.content}</p>
