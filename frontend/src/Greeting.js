@@ -5,25 +5,29 @@ function Greeting() {
   const [articles, setArticles] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
-    const apiUrl = `http://localhost:7860/api/articles/?search=${searchQuery}`;
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => setArticles(data))
-      .catch((error) => console.error("Error fetching data: ", error));
-  }, [searchQuery]);
-
   const handleSearch = (query) => {
     setSearchQuery(query);
+    if (query) {
+      fetchArticles(query);
+    }
   };
 
-  const filteredArticles = searchQuery
-    ? articles.filter(
-        (article) =>
-          article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          article.content.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : [];
+  const fetchArticles = (query) => {
+    const apiUrl = `http://localhost:7860/api/articles/?search=${query}`;
+    console.log("Fetching articles with query:", query); // Log the search query
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        setArticles(data);
+        console.log("Fetched articles:", data); // Log the fetched articles
+      })
+      .catch((error) => console.error("Error fetching data: ", error));
+  };
+
+  const regex = new RegExp(searchQuery, "i");
+  const filteredArticles = articles.filter(
+    (article) => regex.test(article.title) || regex.test(article.content)
+  );
 
   return (
     <div>
