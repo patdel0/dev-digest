@@ -5,29 +5,22 @@ function Greeting() {
   const [articles, setArticles] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
+  useEffect(() => {
+    if (searchQuery !== "") {
+      const apiUrl = `http://localhost:7860/api/articles/?search=${searchQuery}`;
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          setArticles(data);
+          console.log(data);
+        })
+        .catch((error) => console.error("Error fetching data: ", error));
+    }
+  }, [searchQuery]);
+
   const handleSearch = (query) => {
     setSearchQuery(query);
-    if (query) {
-      fetchArticles(query);
-    }
   };
-
-  const fetchArticles = (query) => {
-    const apiUrl = `http://localhost:7860/api/articles/?search=${query}`;
-    console.log("Fetching articles with query:", query); // Log the search query
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        setArticles(data);
-        console.log("Fetched articles:", data); // Log the fetched articles
-      })
-      .catch((error) => console.error("Error fetching data: ", error));
-  };
-
-  const regex = new RegExp(searchQuery, "i");
-  const filteredArticles = articles.filter(
-    (article) => regex.test(article.title) || regex.test(article.content)
-  );
 
   return (
     <div>
@@ -36,7 +29,7 @@ function Greeting() {
       </div>
       <h1>Articles</h1>
       <ul>
-        {filteredArticles.map((article) => (
+        {articles.map((article) => (
           <li key={article.id}>
             <h2>{article.title}</h2>
             <p>{article.content}</p>
