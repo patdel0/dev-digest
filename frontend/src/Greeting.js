@@ -9,7 +9,7 @@ function Greeting() {
     const apiUrl = `http://localhost:7860/api/articles/?search=${searchQuery}`;
     fetch(apiUrl)
       .then((response) => response.json())
-      .then((data) => setArticles(data))
+      .then((data) => {setArticles(data); console.log(data)})
       .catch((error) => console.error("Error fetching data: ", error));
   }, [searchQuery]);
 
