@@ -11,9 +11,11 @@ class ArticleListCreate(generics.ListCreateAPIView):
         queryset = Article.objects.all()
         search_term = self.request.query_params.get('search', None)
         if search_term is not None:
-            queryset = queryset.filter(title__icontains=search_term)
+            queryset = queryset.filter(
+                Q(title__icontains=search_term) | Q(content__icontains=search_term)
+            )
         return queryset
-
+    
 class ArticleRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
