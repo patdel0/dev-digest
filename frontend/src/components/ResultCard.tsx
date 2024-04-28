@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useState } from "react";
 
 interface Article {
     id: number,
@@ -12,27 +12,30 @@ interface Article {
 export default function ResultCard({ id, title, excerpt, url, rating: initialRating, provider }: Article): ReactElement {
     const [rating, setRating] = useState(initialRating);
 
-    useEffect(() => {
-        updateDbRating()
-    }, [rating])
+    async function updateDbRating() {
+        try {
+            const response = await fetch(`http://localhost:7860/api/articles/${id}/`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ rating })
+            });
 
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
 
-
-    function updateDbRating() {
-        fetch(`http://localhost:7860/api/articles/${id}/`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ rating })
-        })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error('Error:', error));
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
 
     function handleVote(ratingChange): void {
         setRating(previousRating => previousRating + ratingChange)
+        updateDbRating()
     }
 
     return <article>
