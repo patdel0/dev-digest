@@ -31,7 +31,7 @@ function Greeting() {
       <h1>Articles</h1>
       <ul>
         {articles.map((article) => (
-          <ResultCard {...article} />
+          <ResultCard key={article.id} {...article} />
         ))}
       </ul>
     </div>
