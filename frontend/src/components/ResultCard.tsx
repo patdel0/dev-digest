@@ -5,11 +5,11 @@ interface Article {
     title: string,
     excerpt: string,
     url: string,
-    rating: number
+    rating: number,
+    provider: string,
 }
 
-
-export default function ResultCard({ id, title, excerpt, url, rating: initialRating }: Article): ReactElement {
+export default function ResultCard({ id, title, excerpt, url, rating: initialRating, provider }: Article): ReactElement {
     const [rating, setRating] = useState(initialRating);
 
     useEffect(() => {
@@ -39,7 +39,7 @@ export default function ResultCard({ id, title, excerpt, url, rating: initialRat
         <a href={url}>
             <h3>{title}</h3>
         </a>
-        <a href={url}>{url}</a>
+        <h4>{provider}</h4>
         <p>{excerpt}</p>
         <p data-testid="rating">{rating}</p>
         <button data-testid="upvote" onClick={() => handleVote(1)}>Upvote</button>

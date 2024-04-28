@@ -12,6 +12,7 @@ describe("ResultCard", () => {
         excerpt: "This is the article excerpt",
         url: "https://www.example.com/",
         rating: 42,
+        provider: "Example blog",
     }
 
     beforeEach(() => {
@@ -22,6 +23,11 @@ describe("ResultCard", () => {
     it("renders the title correctly", () => {
         const title = screen.getByRole("heading", { name: mockArticle.title });
         expect(title).toBeInTheDocument();
+    });
+
+    it("renders the title correctly", () => {
+        const provider = screen.getByRole("heading", { name: mockArticle.provider });
+        expect(provider).toBeInTheDocument();
     });
 
     it("renders the excerpt correctly", () => {
