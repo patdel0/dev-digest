@@ -1,6 +1,7 @@
 import React, { ReactElement, useState } from "react";
+import { TiArrowUpThick, TiArrowDownThick } from "react-icons/ti";
 
-interface Article {
+export interface ResultCardProps {
   id: number;
   title: string;
   excerpt: string;
@@ -16,7 +17,7 @@ export default function ResultCard({
   url,
   rating: initialRating,
   provider,
-}: Article): ReactElement {
+}: ResultCardProps): ReactElement {
   const [rating, setRating] = useState(initialRating);
 
   async function updateDbRating() {
@@ -49,19 +50,21 @@ export default function ResultCard({
   }
 
   return (
-    <article>
-      <a href={url}>
-        <h3>{title}</h3>
+    <article className="my-10 p-10 min-w-80 max-w-screen-sm shadow rounded-md">
+      <a className="underline" href={url}>
+        <h3 className="font-bold text-lg">{title}</h3>
       </a>
-      <h4>{provider}</h4>
+      <h4 className="italic mb-5">{provider}</h4>
       <p>{excerpt}</p>
-      <p data-testid="rating">{rating}</p>
-      <button data-testid="upvote" onClick={() => handleVote(1)}>
-        Upvote
-      </button>
-      <button data-testid="downvote" onClick={() => handleVote(-1)}>
-        Downvote
-      </button>
+      <div className="flex mt-5">
+        <button data-testid="upvote" onClick={() => handleVote(1)}>
+          <TiArrowUpThick />
+        </button>
+        <p className="w-4 mx-2" data-testid="rating">{rating}</p>
+        <button data-testid="downvote" onClick={() => handleVote(-1)}>
+          <TiArrowDownThick />
+        </button>
+      </div>
     </article>
   );
 }

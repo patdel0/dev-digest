@@ -1,7 +1,7 @@
 import fetchMock from 'jest-fetch-mock';
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
-import ResultCard from '../../src/components/ResultCard';
+import ResultCard from './';
 
 fetchMock.enableMocks();
 
