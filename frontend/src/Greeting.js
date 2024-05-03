@@ -1,30 +1,49 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "./stories/Button";
-import SearchInputField from "./components/SearchInputField/SearchInputField"; // Import the SearchInputField component
+import SearchInputField from "./components/SearchInputField/SearchInputField";
 
 function Greeting() {
-  const [greeting, setGreeting] = useState(null);
+  const [articles, setArticles] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    fetch("https://patdel0-dev-digest-backend.hf.space/api/hello/")
-      .then((response) => response.json())
-      .then((data) => setGreeting(data.message))
-      .catch((error) => console.error("Error fetching data: ", error));
-  }, []);
+    if (searchQuery !== "") {
+      const apiUrl = `http://localhost:7860/api/articles/?search=${searchQuery}`;
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          setArticles(data);
+          console.log(data);
+        })
+        .catch((error) => console.error("Error fetching data: ", error));
+    }
+  }, [searchQuery]);
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
 
   return (
     <div>
-      <h1 data-testid="greeting">{greeting}</h1>
-      <Button label="Button" onClick={() => {}} primary />
       <div>
-        <SearchInputField
-          placeholder="Search..."
-          onSearch={(query) => {
-            // Handle search functionality here
-            console.log("Search query:", query);
-          }}
-        />
+        <SearchInputField placeholder="Search..." onSearch={handleSearch} />
       </div>
+      <h1>Articles</h1>
+      <ul>
+        {articles.map((article) => (
+          <li key={article.id}>
+            <h2>{article.title}</h2>
+            <p>{article.content}</p>
+            <p>Rating: {article.rating}</p>
+            <p>Excerpt: {article.excerpt}</p>
+            <p>Provider: {article.provider}</p>
+            <p>
+              Published: {new Date(article.created_at).toLocaleDateString()}
+            </p>
+            <p>Updated: {new Date(article.updated_at).toLocaleDateString()}</p>
+            <a href={article.url}>Read more</a>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
