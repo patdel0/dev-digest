@@ -10,6 +10,27 @@ export interface ResultCardProps {
   provider: string;
 }
 
+async function updateDbRating(id, rating): Promise<void> {
+  try {
+    const response = await fetch(`http://localhost:7860/api/articles/${id}/`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ rating }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
 export default function ResultCard({
   id,
   title,
@@ -17,39 +38,15 @@ export default function ResultCard({
   url,
   rating: initialRating,
   provider,
-}: ResultCardProps): ReactElement {
+}): ReactElement<ResultCardProps> {
   const [rating, setRating] = useState(initialRating);
 
   useEffect(() => {
-    if(rating !== initialRating) updateDbRating()
-  }, [rating])
+    if (rating !== initialRating) updateDbRating(id, rating);
+  }, [rating]);
 
-  async function updateDbRating() {
-    try {
-      const response = await fetch(
-        `http://localhost:7860/api/articles/${id}/`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ rating }),
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  }
-
-  function handleVote(ratingChange): void {
-    setRating((previousRating) => previousRating + ratingChange);
+  function handleVote(ratingChange: number): void {
+    setRating((previousRating: number) => previousRating + ratingChange);
   }
 
   return (
@@ -63,7 +60,9 @@ export default function ResultCard({
         <button data-testid="upvote" onClick={() => handleVote(1)}>
           <TiArrowUpThick />
         </button>
-        <p className="w-4 mx-2" data-testid="rating">{rating}</p>
+        <p className="w-4 mx-2" data-testid="rating">
+          {rating}
+        </p>
         <button data-testid="downvote" onClick={() => handleVote(-1)}>
           <TiArrowDownThick />
         </button>
