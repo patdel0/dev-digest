@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { TiArrowUpThick, TiArrowDownThick } from "react-icons/ti";
 
 export interface ResultCardProps {
@@ -19,6 +19,10 @@ export default function ResultCard({
   provider,
 }: ResultCardProps): ReactElement {
   const [rating, setRating] = useState(initialRating);
+
+  useEffect(() => {
+    if(rating !== initialRating) updateDbRating()
+  }, [rating])
 
   async function updateDbRating() {
     try {
@@ -46,7 +50,6 @@ export default function ResultCard({
 
   function handleVote(ratingChange): void {
     setRating((previousRating) => previousRating + ratingChange);
-    updateDbRating();
   }
 
   return (
