@@ -8,7 +8,7 @@ function Greeting() {
   const [articles, setArticles] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const articlesPerPage = 5;
+  const articlesPerPage = 9;
 
   useEffect(() => {
     setCurrentPage(1);
@@ -42,15 +42,17 @@ function Greeting() {
   };
 
   return (
-    <Stack spacing={2}>
-      <div>
+    <Stack className="flex flex-col items-center space-y-4 p-4" spacing={2}>
+      <div className="w-full max-w-md">
         <SearchInputField placeholder="Search..." onSearch={handleSearch} />
       </div>
-      <h1>Articles</h1>
+      <h1 className="text-2xl font-bold">Articles</h1>
       {currentArticles.length > 0 ? (
-        currentArticles.map((article) => (
-          <ResultCard key={article.id} {...article} />
-        ))
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-5xl">
+          {currentArticles.map((article) => (
+            <ResultCard key={article.id} {...article} />
+          ))}
+        </div>
       ) : (
         <p>No articles found.</p>
       )}
@@ -59,6 +61,7 @@ function Greeting() {
           count={Math.ceil(articles.length / articlesPerPage)}
           page={currentPage}
           onChange={handleChangePage}
+          className="mt-4"
         />
       )}
     </Stack>
